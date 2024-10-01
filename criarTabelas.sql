@@ -2,13 +2,22 @@ drop database if exists integracao;
 create database integracao;
 use integracao;
 
-create table carro(
-	id int not null auto_increment primary key,
-    nome varchar(45) not null,
-    valor float not null,
-    modelo varchar(45) not null,
-    ano int not null,
-    marca varchar(45) not null
+-- Tabela para Carro
+CREATE TABLE Carro (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    modelo VARCHAR(100) NOT NULL,
+    marca VARCHAR(50) NOT NULL,
+    ano INT NOT NULL,
+    preco FLOAT NOT NULL
+);
+
+-- Tabela para Cliente
+CREATE TABLE Cliente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telefone VARCHAR(15) NOT NULL
 );
 
 select * from carro;

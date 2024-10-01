@@ -1,14 +1,14 @@
 package inatel.Model;
 
 public class Carro {
-    private String id;
+    private int id;
     private String nome;
     private float valor;
     private String modelo;
     private int ano;
     private String marca;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -32,7 +32,7 @@ public class Carro {
         return marca;
     }
 
-    public Carro(String id, String nome, float valor, String modelo, int ano, String marca) {
+    public Carro(int id, String nome, float valor, String modelo, int ano, String marca) {
         this.id = id;
         this.nome = nome;
         this.valor = valor;

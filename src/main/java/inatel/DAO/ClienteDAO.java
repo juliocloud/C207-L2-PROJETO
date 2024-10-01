@@ -1,24 +1,22 @@
 package inatel.DAO;
 
-import inatel.Model.Carro;
+import inatel.Model.Cliente;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CarroDAO extends ConnectionDAO{
+public class ClienteDAO extends ConnectionDAO{
 
-    public boolean insertCarro(Carro carro){
+    public boolean insertCliente(Cliente cliente){
         connectToDb();
 
         boolean success;
-        String sql = "INSERT INTO carro (nome, valor, modelo, ano, marca) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO cliente (nome, email, telefone) VALUES (?,?,?)";
         try {
             pst = con.prepareStatement(sql);
-            pst.setString(1, carro.getNome());
-            pst.setFloat(2, carro.getValor());
-            pst.setString(3, carro.getModelo());
-            pst.setInt(4, carro.getAno());
-            pst.setString(5, carro.getMarca());
+            pst.setString(1, cliente.getNome());
+            pst.setString(2, cliente.getEmail());
+            pst.setString(3, cliente.getTelefone());
             pst.execute();
             success = true;
         } catch (SQLException err){
@@ -35,19 +33,17 @@ public class CarroDAO extends ConnectionDAO{
         return success;
     }
 
-    public boolean updateCarro(int id, Carro carro){
+    public boolean updateCliente(int id, Cliente cliente){
         connectToDb();
 
         boolean sucesso;
-        String sql = "UPDATE carro SET nome = ?, valor = ?, modelo =? , ano=?, marca=? WHERE id = ?";
+        String sql = "UPDATE cliente SET nome = ?, email =?, telefone=? WHERE id = ?";
         try {
             pst = con.prepareStatement(sql);
-            pst.setString(1, carro.getNome());
-            pst.setFloat(2, carro.getValor());
-            pst.setString(3, carro.getModelo());
-            pst.setInt(4, carro.getAno());
-            pst.setString(5, carro.getMarca());
-            pst.setInt(6, id);
+            pst.setString(1, cliente.getNome());
+            pst.setString(2, cliente.getEmail());
+            pst.setString(3, cliente.getTelefone());
+            pst.setInt(4, id);
             pst.execute();
             sucesso = true;
 
@@ -65,11 +61,11 @@ public class CarroDAO extends ConnectionDAO{
         return sucesso;
     }
 
-    public boolean deleteCarro(int id){
+    public boolean deleteCliente(int id){
         connectToDb();
 
         boolean sucesso;
-        String sql = "DELETE FROM carro WHERE id = ?";
+        String sql = "DELETE FROM cliente WHERE id = ?";
         try {
             pst = con.prepareStatement(sql);
             pst.setInt(1, id);
@@ -90,26 +86,24 @@ public class CarroDAO extends ConnectionDAO{
         return sucesso;
     }
 
-    public ArrayList<Carro> selectCarro() {
+    public ArrayList<Cliente> selectCliente() {
         connectToDb();
 
-        ArrayList<Carro> carros = new ArrayList<>();
-        String sql = "SELECT * FROM carro";
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM cliente";
         try {
             st = con.createStatement();
             rs = st.executeQuery(sql);
-            System.out.println("Lista de carros:");
+            System.out.println("Lista de clientes:");
             while (rs.next()) {
-                Carro carroAux = new Carro(
+                Cliente clienteAux = new Cliente(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getFloat("valor"),
-                        rs.getString("modelo"),
-                        rs.getInt("ano"),
-                        rs.getString("marca"));
-                System.out.println("Nome: " + carroAux.getNome() + "Valor: " + carroAux.getValor() + "Modelo: " + carroAux.getModelo() + "Ano: " + carroAux.getAno() + "Marca: " + carroAux.getMarca() );
+                        rs.getString("email"),
+                        rs.getString("telefone"));
+                System.out.println("Nome: " + clienteAux.getNome() + "Email: " + clienteAux.getEmail() +   "Telefone: " + clienteAux.getTelefone() );
                 System.out.println("--------------------");
-                carros.add(carroAux);
+                clientes.add(clienteAux);
             }
 
         } catch (SQLException exc) {
@@ -123,7 +117,7 @@ public class CarroDAO extends ConnectionDAO{
                 System.out.println("Erro: " + exc.getMessage());
             }
         }
-        return carros;
+        return clientes;
     }
 
 }
