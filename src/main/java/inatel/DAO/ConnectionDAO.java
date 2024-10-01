@@ -1,8 +1,8 @@
-package inatel;
+package inatel.DAO;
 
 import java.sql.*;
 
-public class ConnDao {
+public class ConnectionDAO {
 
     Connection con; //conexão
     PreparedStatement pst; //declaração(query) preparada - código em sql
