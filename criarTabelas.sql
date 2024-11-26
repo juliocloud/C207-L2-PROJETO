@@ -1,8 +1,12 @@
--- Create database
+-- Colocado o carro id dentro da negociacao, conforme observado pelo monitor
+-- CRLV agora possui uma chave primaria composta apenas de carro id e cliente cpf
+-- A relacao cliente has concessionaria diz que varios clientes podem ter cadastro em varias concessionarias
+
 DROP DATABASE IF EXISTS integracao;
 CREATE DATABASE integracao;
 USE integracao;
 
+-- -----------------------------------------------
 CREATE TABLE Concessionaria (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL
@@ -27,15 +31,6 @@ CREATE TABLE Carro (
     FOREIGN KEY (Concessionaria_id) REFERENCES Concessionaria(id) ON DELETE CASCADE
 );
 
-
-
-CREATE TABLE CRLV (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    vencimento DATE NOT NULL,
-    Carro_id INT,
-    FOREIGN KEY (Carro_id) REFERENCES Carro(id) ON DELETE CASCADE
-);
-
 CREATE TABLE Cliente (
     cpf VARCHAR(11) PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -58,7 +53,6 @@ CREATE TABLE Negociacao (
     formaPagamento VARCHAR(50) NOT NULL,
     comissao DECIMAL(10, 2) NOT NULL,
     Funcionario_id INT,
-    Funcionario_Concessionaria_id INT,
     Carro_id INT,
     FOREIGN KEY (Cliente_cpf) REFERENCES Cliente(cpf),
     FOREIGN KEY (Concessionaria_id) REFERENCES Concessionaria(id) ON DELETE CASCADE,
@@ -66,6 +60,16 @@ CREATE TABLE Negociacao (
     FOREIGN KEY (Carro_id) REFERENCES Carro(id) ON DELETE CASCADE
 );
 
+CREATE TABLE CRLV (
+    Carro_id INT,
+    Cliente_cpf VARCHAR(11),
+    vencimento DATE NOT NULL,
+    PRIMARY KEY (Carro_id, Cliente_cpf),
+    FOREIGN KEY (Carro_id) REFERENCES Carro(id) ON DELETE CASCADE,
+    FOREIGN KEY (Cliente_cpf) REFERENCES Cliente(cpf) ON DELETE CASCADE
+);
+
+-- -----------------------------------------------
 INSERT INTO Concessionaria (nome) VALUES ('Concessionária A');
 INSERT INTO Concessionaria (nome) VALUES ('Concessionária B');
 
@@ -81,26 +85,24 @@ INSERT INTO Carro (nome, valor, modelo, ano, marca, Concessionaria_id) VALUES ('
 INSERT INTO Negociacao (Cliente_cpf, Concessionaria_id, formaPagamento, comissao, Funcionario_id, Carro_id) VALUES ('12345678901', 1, 'À vista', 5000, 1, 1);
 INSERT INTO Negociacao (Cliente_cpf, Concessionaria_id, formaPagamento, comissao, Funcionario_id, Carro_id) VALUES ('23456789012', 2, 'Financiamento', 6000, 2, 2);
 
+INSERT INTO CRLV (Carro_id, Cliente_cpf, vencimento)
+VALUES
+(1, '12345678901', '2024-01-01'),
+(2, '23456789012', '2024-03-31');
 
+-- -----------------------------------------------
 UPDATE Concessionaria SET nome = 'Concessionária X' WHERE id = 1;
-
 UPDATE Cliente SET telefone = '9876543210' WHERE cpf = '12345678901';
-
 UPDATE Funcionario SET cargo = 'Supervisor' WHERE id = 1;
-
 UPDATE Carro SET valor = 55000 WHERE id = 1;
-
 UPDATE Negociacao SET Concessionaria_id = NULL WHERE Concessionaria_id = 2;
 
-
-
+-- -----------------------------------------------
 DELETE FROM Carro WHERE id = 2;
-
 DELETE FROM Cliente WHERE cpf = '23456789012';
-
 DELETE FROM Funcionario WHERE id = 2;
 
-
+-- -----------------------------------------------
 SELECT Carro.nome AS Carro, Carro.modelo, Carro.ano, Carro.marca, Concessionaria.nome AS Concessionaria
 FROM Carro
 JOIN Concessionaria ON Carro.Concessionaria_id = Concessionaria.id;
@@ -114,8 +116,7 @@ SELECT Funcionario.nome AS Funcionario, Funcionario.cargo, Concessionaria.nome A
 FROM Funcionario
 JOIN Concessionaria ON Funcionario.Concessionaria_id = Concessionaria.id;
 
-
-
+-- -----------------------------------------------
 CREATE VIEW vw_NegociacaoDetalhada AS
 SELECT Negociacao.id, Cliente.nome AS Cliente, Carro.nome AS Carro, Carro.modelo, Carro.ano, Carro.marca, Concessionaria.nome AS Concessionaria, Negociacao.formaPagamento, Negociacao.comissao, Funcionario.nome AS Funcionario
 FROM Negociacao
@@ -125,5 +126,3 @@ JOIN Concessionaria ON Negociacao.Concessionaria_id = Concessionaria.id
 JOIN Funcionario ON Negociacao.Funcionario_id = Funcionario.id;
 
 SELECT * FROM vw_NegociacaoDetalhada;
-
-
