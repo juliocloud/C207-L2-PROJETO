@@ -1,5 +1,6 @@
 # Esquema de Banco de Dados Integracao
 
+### O arquivo onde estão os códigos sql está localizado na pasta raíz, no arquivo ```criarTabelas.sql```
 ## Visão Geral
 
 Este esquema representa um sistema de gerenciamento de concessionárias com as seguintes entidades:
