@@ -1,11 +1,12 @@
-# Concessionaria
-![Concessionaria](https://media.gazetadopovo.com.br/2020/12/21155059/toyota-sulpar-fachada_Rodofo-Buhrer-960x540.jpg)
-
-Esquema em SQL de uma concessionaria. O objetivo é criar classes que representem uma concessionária e negociações de carros. Nessa concessionária, um cliente poderá adquirir um carro e fazer parte de uma negociação. Nessa negociação, podreremos ter um funcionário responsável, que irá ganhar uma comissão.
+# Concessionaria - Projeto C207 - L2
+O arquivo onde estão os códigos sql está localizado na pasta raíz, no arquivo ```criarTabelas.sql```
 
 [Link do video de apresentação](https://drive.google.com/file/d/1nRYFyD90vQq8IWRBJoIJiAxbNSJ0CaTA/view?usp=sharing)
 
-O arquivo onde estão os códigos sql está localizado na pasta raíz, no arquivo ```criarTabelas.sql```
+![Concessionaria](https://media.gazetadopovo.com.br/2020/12/21155059/toyota-sulpar-fachada_Rodofo-Buhrer-960x540.jpg)
+Esquema em SQL de uma concessionaria. O objetivo é criar classes que representem uma concessionária e negociações de carros. Nessa concessionária, um cliente poderá adquirir um carro e fazer parte de uma negociação. Nessa negociação, podreremos ter um funcionário responsável, que irá ganhar uma comissão.
+
+
 ## Visão Geral
 
 Este esquema representa um sistema de gerenciamento de concessionárias com as seguintes entidades:
