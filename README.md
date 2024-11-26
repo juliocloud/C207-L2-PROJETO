@@ -4,18 +4,18 @@
 ## Visão Geral
 
 Este esquema representa um sistema de gerenciamento de concessionárias com as seguintes entidades:
-- Concessionárias
-- Funcionários
-- Carros
-- Clientes
-- Negociações
-- CRLV (Carta de Registro e Licenciamento Veicular)
+- Concessionária
+- Funcionário
+- Carro
+- Cliente
+- Negociaçõe
+- CRLV (Certificado de Registro e Licenciamento Veicular)
 
 ## Tabelas
 
 ### Concessionaria
 - Chave primária: id
-- Armazena informações sobre locais de concessionárias
+- Armazena informações sobre as concessionárias
 
 ### Funcionario
 - Chave primária: id
@@ -31,7 +31,7 @@ Este esquema representa um sistema de gerenciamento de concessionárias com as s
 
 ### Cliente_has_Concessionaria
 - Chave primária composta: (Cliente_cpf, Concessionaria_id)
-- Representa relação muito-a-muito entre clientes e concessionárias
+- Representa relação muitos pra muitos entre clientes e concessionárias
 
 ### Negociacao
 - Chave primária: id
